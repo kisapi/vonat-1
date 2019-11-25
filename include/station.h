@@ -14,7 +14,7 @@ public:
 	Station(const std::string name);
 	virtual ~Station();
 	virtual const std::string& getName() const = 0;
-	virtual const bool isEmpty() const = 0;
+    virtual bool isEmpty() const = 0;
 	virtual void addTrain(const Train* newTrain) = 0;
 	virtual void addWagon(const Wagon* newWagon) = 0;
 	virtual void addPackage(const Package* newPackage) = 0; //this should determine where to put the package
@@ -30,6 +30,6 @@ private:
 	std::set<Package*> unDeliveredPackages;
 	std::vector<Package*> deliveredPackages;	
 	std::set<Wagon*> unMountedWagons;
-}
+};
 
 #endif // STATION_H
