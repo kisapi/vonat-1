@@ -1,10 +1,9 @@
 #include <iostream>
 
-
-#include "package.h"
-#include "station.h"
-#include "train.h"
-#include "wagon.h"
+#include "mypackage.hpp"
+#include "mystation.hpp"
+#include "mytrain.hpp"
+#include "mywagon.hpp"
 
 int main()
 {

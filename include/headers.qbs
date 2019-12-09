@@ -5,10 +5,10 @@ Project {
         name: "headers"
         cpp.includePaths: product.sourceDirectory
         files: [
-            "package.h",
-            "station.h",
-            "train.h",
-            "wagon.h"
+            "package.hpp",
+            "station.hpp",
+            "train.hpp",
+            "wagon.hpp"
         ]
         Export {
             Depends { name: "cpp" }

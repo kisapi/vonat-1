@@ -13,12 +13,19 @@ Project {
             fileTagsFilter: "application"
             qbs.install: true
         }
-        Depends {name: "headers"}
+        Depends { name: "headers" }
+        Depends { name: "sources" }
     }
     SubProject {
         filePath: "../include/headers.qbs"
         Properties {
             name: "Headers"
+        }
+    }
+    SubProject {
+        filePath: "../src/sources.qbs"
+        Properties {
+            name: "Sources"
         }
     }
 }
