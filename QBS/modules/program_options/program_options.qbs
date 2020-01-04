@@ -6,7 +6,7 @@ Module {
 
     Properties {
         condition: qbs.targetOS.contains("linux")
-	cpp.defines: ["ON_LINUX"]
+        cpp.defines: ["ON_LINUX"]
         cpp.includePaths: ["/usr/include"]
         cpp.dynamicLibraries: ["/usr/lib/x86_64-linux-gnu/libboost_program_options.so"]
     }

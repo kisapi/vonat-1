@@ -13,7 +13,6 @@ Project {
             fileTagsFilter: "application"
             qbs.install: true
         }
-        Depends { name: "chrono" }
         Depends { name: "headers" }
         Depends { name: "sources" }
         Depends { name: "program_options" }
