@@ -9,6 +9,10 @@ const std::string& MyPackage::getName() const{
     return name;
 }
 
+unsigned int MyPackage::getAmount() const {
+    return amount;
+}
+
 const Station* MyPackage::getDestination() const{
     return destination;
 }

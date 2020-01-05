@@ -7,17 +7,17 @@
 
 class MyTrain : public Train{
 public:
+     MyTrain(const std::string name, const unsigned int maxWagonNumber, const std::vector<std::string>& schedule)
+         : Train(name,maxWagonNumber,schedule){}
      const std::string& getName() const;
      unsigned int getMaxWagonNumber() const;
      bool isEmpty() const;
      bool isFull() const;
      const std::set<Wagon*>* getWagons() const;
-     bool isWagonMounted(const std::string name) const;
+     bool isWagonMounted(Wagon &wagon) const;
      const std::set<Wagon*>::iterator findWagon(Wagon* const wagonToFind) const;
      void mountWagon(Wagon* newWagon);
      void disMountWagon(const std::set<Wagon*>::iterator which);
-
-     bool operator==(MyTrain& other) const;
 };
 
 #endif // MYTRAIN_HPP

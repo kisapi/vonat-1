@@ -9,16 +9,11 @@
 #include "train.hpp"
 #include "wagon.hpp"
 
-/*
-class Train;
-class Wagon;
-class Package;
-*/
 class Station{
 public:
     Station(const std::string& name)
         : name(name){}
-	virtual ~Station();
+    virtual ~Station(){}
 	virtual const std::string& getName() const = 0;
     virtual bool isEmpty() const = 0;
     virtual void addTrain(Train* newTrain) = 0;

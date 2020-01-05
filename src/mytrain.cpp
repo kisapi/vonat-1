@@ -32,6 +32,9 @@ void MyTrain::disMountWagon(const std::set<Wagon*>::iterator which){
     wagons.erase(which);
 }
 
-bool MyTrain::operator ==(MyTrain& other) const{
-    return (this->name == other.getName());
+bool MyTrain::isWagonMounted(Wagon &  wagon) const{
+    if(wagons.find(&wagon) == wagons.end()){
+        return false;
+    }
+    return true;
 }
