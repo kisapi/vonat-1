@@ -12,7 +12,8 @@
 
 class Train{
 public:
-    Train(const std::string name, const unsigned int maxWagonNumber, const std::vector<std::string>& schedule)
+    Train(const std::string name, const unsigned int maxWagonNumber,
+          const std::vector<std::pair<std::string,unsigned int>>& schedule)
         :name(name), maxWagonNumber(maxWagonNumber), schedule(schedule){}
     virtual ~Train(){}
 	virtual const std::string& getName() const = 0;
@@ -28,7 +29,7 @@ protected:
     const std::string name;
     const unsigned int maxWagonNumber;
     std::set<Wagon*> wagons;
-    const std::vector<std::string> schedule;
+    const std::vector<std::pair<std::string,unsigned int>> schedule;
 };
 
 #endif // TRAIN_HPP

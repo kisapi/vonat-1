@@ -51,16 +51,20 @@ void load (const std::string fileName, std::vector<MyPackage>& packages, std::ve
         locationStation->addPackage(&tmp);
     }
 
+
     //Trains
     pt::ptree& trainTree = tree.get_child("shipping.trains");
     for( pt::ptree::value_type newTrain : trainTree){
         //const std::string packageName (newPackage.second.get_child("name").get_value<std::string>());
         const std::string trainName  (newTrain.second.get_child("name").get_value<std::string>());
         const unsigned int maxWagonNumber (newTrain.second.get_child("maxWagonNumber").get_value<unsigned int>());
-        std::vector<std::string> schedule;
+        std::vector<std::pair<std::string,unsigned int>> schedule;
 
         for( pt::ptree::value_type& stop : newTrain.second.get_child("schedule")){
-            schedule.push_back(stop.second.get_value<std::string>());
+            std::string name (stop.second.get_child("name").get_value<std::string>());
+            unsigned int time (stop.second.get_child("time").get_value<unsigned int>());
+
+            schedule.push_back(std::make_pair(name,time));
         }
 
         MyTrain tmp (trainName,maxWagonNumber,schedule);
@@ -85,7 +89,6 @@ void load (const std::string fileName, std::vector<MyPackage>& packages, std::ve
         locationStation->addWagon(&tmp);
         wagons.push_back(tmp);
     }
-
 }
 
 

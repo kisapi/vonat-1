@@ -7,7 +7,8 @@
 
 class MyTrain : public Train{
 public:
-     MyTrain(const std::string name, const unsigned int maxWagonNumber, const std::vector<std::string>& schedule)
+     MyTrain(const std::string name, const unsigned int maxWagonNumber,
+             const std::vector<std::pair<std::string,unsigned int>>& schedule)
          : Train(name,maxWagonNumber,schedule){}
      const std::string& getName() const;
      unsigned int getMaxWagonNumber() const;
