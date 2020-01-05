@@ -14,17 +14,17 @@ int main(int argc,  char* argv[])
     std::cout << "The program strated" << std::endl;
     std::chrono::system_clock::time_point start = std::chrono::system_clock::now();
     std::string fileName;
-
+    bool statistics(false);
     //Initializing program options
     po::options_description desc("Program options:");
     desc.add_options()
-            ("input,i",po::value<std::string>(&fileName)->default_value("~"),
+            ("input,i",po::value<std::string>(&fileName)->default_value("./input.json"),
              "Specify in what directory does the program search for the input.json")
             ("help,h","Produce this help message and quit.")
             ("time,t","Write out time statistics while running.");
     po::variables_map vmap;
     po::positional_options_description p;
-    p.add("input ", -1);
+    p.add("input", -1);
     po::store(po::command_line_parser(argc, argv).options(desc).positional(p).run(), vmap);
     po::notify(vmap);
 
@@ -37,7 +37,6 @@ int main(int argc,  char* argv[])
         if (vmap.count("time")) {
             statistics = true;
             std::cout << "Time statistics are on." << std::endl;
-            return 0;
         }//sztem itt valami define kell
         if(vmap.count("input")){
             fileName = vmap["input"].as<std::string>();
