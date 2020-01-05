@@ -2,7 +2,7 @@ import qbs
 
 Project {
     minimumQbsVersion: "1.7.1"
-
+    qbsSearchPaths: "../QBS"
     CppApplication {
         cpp.cxxLanguageVersion: "c++14"
         cpp.enableRtti: "true"
@@ -13,6 +13,7 @@ Project {
             fileTagsFilter: "application"
             qbs.install: true
         }
+        Depends { name: "boost" }
         Depends { name: "headers" }
         Depends { name: "sources" }
     }
