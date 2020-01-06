@@ -46,13 +46,16 @@ int main(int argc,  char* argv[])
 
     std::chrono::system_clock::time_point parsed = std::chrono::system_clock::now();
 
+    std::chrono::system_clock::time_point tested = std::chrono::system_clock::now();
+
     std::chrono::system_clock::time_point optimized = std::chrono::system_clock::now();
 
     std::chrono::system_clock::time_point wrote = std::chrono::system_clock::now();
 
-
     std::chrono::system_clock::time_point end = std::chrono::system_clock::now();
 
+
+    if(statistics){
     //Writing out time statistics
     std::cout << "Program worked for "
               << std::chrono::duration_cast<std::chrono::seconds>(end - start).count()
@@ -60,12 +63,15 @@ int main(int argc,  char* argv[])
               << "The loading and parsing of the data took "
               << std::chrono::duration_cast<std::chrono::milliseconds>(parsed - start).count()
               << " miliseconds." << std::endl
+              << "The validation of the date took "
+              << std::chrono::duration_cast<std::chrono::milliseconds>(tested - parsed).count()
+              << " miliseconds" << std::endl
               << "The calculation of the optimal shiping took "
               << std::chrono::duration_cast<std::chrono::seconds>(optimized - parsed).count()
               << " seconds." << std::endl
               << "Writing out the solution took "
               << std::chrono::duration_cast<std::chrono::milliseconds>(end - wrote).count()
               << " miliseconds" << std::endl;
-
+    }
     return 0;
 }
