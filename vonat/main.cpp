@@ -1,7 +1,9 @@
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/json_parser.hpp>
+#include <fstream>
 #include <iostream>
 #include <queue>
+#include <set>
 #include <vector>
 
 #include "mypackage.hpp"
@@ -10,6 +12,13 @@
 #include "mywagon.hpp"
 
 namespace pt = boost::property_tree;
+
+bool testInput(const std::string fileName){
+    std::ifstream f(fileName.c_str());
+    return f.good();
+}
+
+
 
 void load (const std::string fileName, std::vector<MyPackage>& packages, std::vector<MyStation>& stations,
            std::vector<MyTrain>& trains, std::vector<MyWagon>& wagons){
@@ -92,16 +101,53 @@ void load (const std::string fileName, std::vector<MyPackage>& packages, std::ve
 }
 
 
+bool isDeployable(const std::vector<MyTrain> trains, const std::vector<MyPackage> packages){
+    const size_t trainSize(trains.size());
+    std::vector<std::vector<bool>> bitMap(trainSize, std::vector<bool>(trainSize,false));
+    for(size_t i = 0; i < (trains.size()-1); ++i){ // iterate through all trains
+        for(size_t k = (i+1); k < trains.size();++k){ //iterate through others
+            const std::vector<std::pair<std::string, unsigned int> >& baseSchedule = trains[i].getSchedule();
+            const std::vector<std::pair<std::string, unsigned int> >& otherSchedule = trains[k].getSchedule();
+
+            for(const std::pair<std::string, unsigned int >& baseTrainItem : baseSchedule){ // base schedule
+                for(const std::pair<std::string, unsigned int >& otherTrainItem : otherSchedule){ //other schedule
+                    if(baseTrainItem == otherTrainItem){
+                        bitMap[i][k] = true;
+                    }
+                }
+            }
+        }
+    }
+    //TODO: wryte algorythm
+    return true;
+}
+
 
 int main (){
 
-    const std::string filename("/home/filbe/ws/vonat/input.json");
+    const std::string filename("./");
+    //Checking if the file exist and isn't damaged
+    if(!testInput(filename)){
+        std::cerr << "The program could not find the given json file." << std::endl;
+        return -1;
+    }
+    //Load the data into these vectors
     std::vector<MyPackage> packages;
     std::vector<MyStation> stations;
     std::vector<MyTrain> trains;
     std::vector<MyWagon> wagons;
 
     load(filename,packages,stations,trains,wagons);
+
+    //Check whether the current problem has a solution
+    if(!isDeployable(trains,packages)){
+        std::cerr << "This problem has no solutions since some packages can't be shipped"
+                  << std::endl;
+        return -1;
+    }
+
+
+
     std::cout << "Hello World!" << std::endl;
     return 0;
 }

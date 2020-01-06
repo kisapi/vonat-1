@@ -19,6 +19,7 @@ public:
      const std::set<Wagon*>::iterator findWagon(Wagon* const wagonToFind) const;
      void mountWagon(Wagon* newWagon);
      void disMountWagon(const std::set<Wagon*>::iterator which);
+     const std::vector<std::pair<std::string, unsigned int> > &getSchedule() const;
 };
 
 #endif // MYTRAIN_HPP

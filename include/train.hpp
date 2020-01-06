@@ -25,6 +25,7 @@ public:
     virtual const std::set<Wagon*>::iterator findWagon(Wagon* const wagonToFind) const = 0;
     virtual void mountWagon(Wagon* newWagon) = 0;
     virtual void disMountWagon(const std::set<Wagon*>::iterator which) = 0;
+    virtual const std::vector<std::pair<std::string,unsigned int> >& getSchedule() const = 0;
 protected:
     const std::string name;
     const unsigned int maxWagonNumber;
