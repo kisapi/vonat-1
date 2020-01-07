@@ -16,6 +16,8 @@ Project {
         Depends { name: "boost" }
         Depends { name: "headers" }
         Depends { name: "sources" }
+        Depends { name: "program_options" }
+
     }
     SubProject {
         filePath: "../include/headers.qbs"
