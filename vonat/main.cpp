@@ -100,8 +100,17 @@ void load (const std::string fileName, std::vector<MyPackage>& packages, std::ve
     }
 }
 
+bool scheduleContains(const MyTrain& train, const std::string stop){
+    const std::vector<std::pair<std::string, unsigned int>>& schedule = train.getSchedule();
+    for(size_t i = 0; i < schedule.size(); ++i){
+        if(schedule[i].first == stop){
+            return true;
+        }
+    }
+    return false;
+}
 
-bool isDeployable(const std::vector<MyTrain> trains, const std::vector<MyPackage> packages){
+bool isDeployable(const std::vector<MyTrain>& trains, const std::vector<MyStation>& stations){
     const size_t trainSize(trains.size());
     std::vector<std::vector<bool>> bitMap(trainSize, std::vector<bool>(trainSize,false));
     for(size_t i = 0; i < (trains.size()-1); ++i){ // iterate through all trains
@@ -118,7 +127,31 @@ bool isDeployable(const std::vector<MyTrain> trains, const std::vector<MyPackage
             }
         }
     }
-    //TODO: wryte algorythm
+
+
+    for(const MyStation& station : stations){ //through stations-> we now the location
+        for(const Package& package : station.getUndeliveredPackages()){ // through packages in that station
+            bool fine(false);
+            package.getDestination();
+            for(size_t i = 0; i < trainSize; ++i){ //through trains, we find the first which contains the location
+                if(scheduleContains(trains[i],station.getName())){
+                    //now we want ot find whether we can reach the destination of the package from here?
+                    for(size_t k = i; k < trainSize; ++k){
+                        if(bitMap[i][k]){
+                            if(scheduleContains(trains[k],package.getDestination()->getName())){
+                                //we can reach the destination
+                                fine = true;
+                            }
+                        }
+                    }
+                }
+            }
+            if(!fine){
+                return false;
+            }
+        }
+    }
+
     return true;
 }
 
@@ -140,7 +173,7 @@ int main (){
     load(filename,packages,stations,trains,wagons);
 
     //Check whether the current problem has a solution
-    if(!isDeployable(trains,packages)){
+    if(!isDeployable(trains,stations)){
         std::cerr << "This problem has no solutions since some packages can't be shipped"
                   << std::endl;
         return -1;
