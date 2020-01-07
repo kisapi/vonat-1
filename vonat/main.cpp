@@ -14,6 +14,7 @@
 #include "mywagon.hpp"
 
 namespace pt = boost::property_tree;
+namespace po = boost::program_options;
 
 bool testInput(const std::string fileName){
     std::ifstream f(fileName.c_str());
@@ -146,7 +147,7 @@ bool isDeployable(const std::vector<MyTrain>& trains, const std::vector<MyStatio
                     }
                 }
             }
-            if(!fine){
+            if(!fine){ //we can't reach the destination
                 return false;
             }
         }
@@ -155,7 +156,6 @@ bool isDeployable(const std::vector<MyTrain>& trains, const std::vector<MyStatio
     return true;
 }
 
-namespace po = boost::program_options;
 
 int main(int argc,  char* argv[])
 {
@@ -191,20 +191,19 @@ int main(int argc,  char* argv[])
         }
     }
 
-
-    const std::string filename("./");
     //Checking if the file exist and isn't damaged
-    if(!testInput(filename)){
+    if(!testInput(fileName)){
         std::cerr << "The program could not find the given json file." << std::endl;
         return -1;
     }
+
     //Load the data into these vectors
     std::vector<MyPackage> packages;
     std::vector<MyStation> stations;
     std::vector<MyTrain> trains;
     std::vector<MyWagon> wagons;
-
-    load(filename,packages,stations,trains,wagons);
+    load(fileName,packages,stations,trains,wagons);
+    std::chrono::system_clock::time_point parsed = std::chrono::system_clock::now();
 
     //Check whether the current problem has a solution
     if(!isDeployable(trains,stations)){
@@ -212,18 +211,13 @@ int main(int argc,  char* argv[])
                   << std::endl;
         return -1;
     }
-
-
-    std::chrono::system_clock::time_point parsed = std::chrono::system_clock::now();
-
     std::chrono::system_clock::time_point tested = std::chrono::system_clock::now();
 
+
+    //TODO: write optimization algorythm
     std::chrono::system_clock::time_point optimized = std::chrono::system_clock::now();
-
-    std::chrono::system_clock::time_point wrote = std::chrono::system_clock::now();
-
+    //TODO: write code output
     std::chrono::system_clock::time_point end = std::chrono::system_clock::now();
-
 
     if(statistics){
     //Writing out time statistics
@@ -240,7 +234,7 @@ int main(int argc,  char* argv[])
               << std::chrono::duration_cast<std::chrono::seconds>(optimized - parsed).count()
               << " seconds." << std::endl
               << "Writing out the solution took "
-              << std::chrono::duration_cast<std::chrono::milliseconds>(end - wrote).count()
+              << std::chrono::duration_cast<std::chrono::milliseconds>(end - optimized).count()
               << " miliseconds" << std::endl;
     }
     return 0;
