@@ -16,19 +16,18 @@ public:
           const std::vector<std::pair<std::string,unsigned int>>& schedule)
         :name(name), maxWagonNumber(maxWagonNumber), schedule(schedule){}
     virtual ~Train(){}
-	virtual const std::string& getName() const = 0;
-    virtual unsigned int getMaxWagonNumber() const = 0;
-    virtual bool isEmpty() const = 0;
-    virtual bool isFull() const = 0;
-    virtual const std::set<Wagon*>* getWagons() const = 0;
-    virtual bool isWagonMounted(Wagon& wagon) const = 0;
-    virtual const std::set<Wagon*>::iterator findWagon(Wagon* const wagonToFind) const = 0;
-    virtual void mountWagon(Wagon* newWagon) = 0;
-    virtual void disMountWagon(const std::set<Wagon*>::iterator which) = 0;
+
+    friend bool operator<(const Train& first, const Train& second){
+        return first.getName() < second.getName();
+    }
+    virtual const std::string& getName() const{
+      return name;
+    }
+
 protected:
     const std::string name;
     const unsigned int maxWagonNumber;
-    std::set<Wagon*> wagons;
+    std::set<Wagon> wagons;
     const std::vector<std::pair<std::string,unsigned int>> schedule;
 };
 
