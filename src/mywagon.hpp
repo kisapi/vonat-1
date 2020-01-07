@@ -13,12 +13,10 @@ public:
     unsigned int getMaxPackageNumber() const;
     bool isEmpty() const;
     bool isFull() const;
-    void addPackage(Package *newPackage);
-    //bool isPackageExisting(const std::string* name);
-    const std::set<Package*>::iterator findPackage(Package * const packageToFind) const;
-    Package* getPackage(Package * const packageToGet) const;
-    //const std::set<Package*>* getPackages() const;
-    void removePackage(const std::set<Package*>::iterator packageToRemove);
+    void addPackage(Package & newPackage);
+    const std::set<Package>::iterator findPackage(const Package & packageToFind) const;
+    //Package &getPackage(const Package & packageToGet) const;
+    void removePackage(const std::set<Package>::iterator packageToRemove);
 };
 
 

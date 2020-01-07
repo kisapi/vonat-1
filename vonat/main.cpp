@@ -57,7 +57,7 @@ void load (const std::string fileName, std::vector<MyPackage>& packages, std::ve
 
         MyPackage tmp (packageName,amount,destinationStation);
         packages.push_back(tmp);
-        locationStation->addPackage(&tmp);
+        locationStation->addPackage(tmp);
     }
 
 
@@ -95,7 +95,7 @@ void load (const std::string fileName, std::vector<MyPackage>& packages, std::ve
         }
 
         MyWagon tmp(name,maxPackageNumber);
-        locationStation->addWagon(&tmp);
+        locationStation->addWagon(tmp);
         wagons.push_back(tmp);
     }
 }
