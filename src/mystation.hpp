@@ -21,6 +21,7 @@ public:
      void removeWagon(const std::set<Wagon>::iterator wagonToRemove);
      const std::set<Package>::iterator findPackage(const Package & name) const;//reconsider taking string as argument
      void removePackage(const std::set<Package>::iterator packageToRemove);
+     const std::set<Package>& getUndeliveredPackages() const;
 };
 
 #endif // MYSTATION_HPP

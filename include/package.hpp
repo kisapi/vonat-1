@@ -14,6 +14,10 @@ public:
     virtual const std::string& getName() const{
         return name;
     }
+    virtual const Station* getDestination() const{
+        return destination;
+    }
+
     friend bool operator< (const Package& first, const Package& second){
         return first.getName() < second.getName();
     }

@@ -38,3 +38,7 @@ bool MyTrain::isWagonMounted(const Wagon &  wagon) const{
     }
     return true;
 }
+
+const std::vector<std::pair<std::string,unsigned int>>& MyTrain::getSchedule() const{
+    return schedule;
+}

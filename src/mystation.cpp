@@ -53,3 +53,7 @@ const std::set<Package>::iterator MyStation::findPackage(const Package & package
 void MyStation::removePackage(const std::set<Package>::iterator packageToRemove){
     unDeliveredPackages.erase(packageToRemove);
 }
+const std::set<Package>& MyStation::getUndeliveredPackages() const{
+    return unDeliveredPackages;
+}
+

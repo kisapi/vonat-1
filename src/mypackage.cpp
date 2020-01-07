@@ -24,7 +24,3 @@ void MyPackage::addAmount(const int _amount){
 void MyPackage::removeAmount(const int _amount){
     amount -= _amount;
 }
-
-bool MyPackage::operator ==(MyPackage& other) const{
-    return (this->name == other.getName());
-}

@@ -14,6 +14,9 @@ public:
     Station(const std::string& name)
         : name(name){}
     virtual ~Station(){}
+    virtual const std::string& getName()const{
+        return name;
+    }
 
 protected:
 	const std::string name;
