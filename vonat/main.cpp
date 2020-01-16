@@ -123,7 +123,7 @@ bool isDeployable(const std::vector<MyTrain>& trains, const std::vector<MyStatio
             for(size_t k = i; k < trains.size();++k){ //iterate through others
                 if(i == k){
                     bitMap[i][k] = true;
-                    break;
+                    continue;
                 }
                 const std::vector<std::pair<std::string, unsigned int> >& baseSchedule = trains[i].getSchedule();
                 const std::vector<std::pair<std::string, unsigned int> >& otherSchedule = trains[k].getSchedule();
@@ -164,6 +164,14 @@ bool isDeployable(const std::vector<MyTrain>& trains, const std::vector<MyStatio
 
     return true;
 }
+
+
+
+
+
+
+
+
 
 
 int main(int argc,  char* argv[])

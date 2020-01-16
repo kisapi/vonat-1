@@ -6,6 +6,8 @@ Project {
         name: "sources"
         cpp.includePaths: product.sourceDirectory
         files: [
+            "status.cpp",
+            "status.hpp",
             "mypackage.hpp",
             "mystation.hpp",
             "mytrain.hpp",
@@ -13,7 +15,7 @@ Project {
             "mypackage.cpp",
             "mystation.cpp",
             "mytrain.cpp",
-            "mywagon.cpp"
+            "mywagon.cpp",
         ]
         Export {
             Depends { name: "cpp" }
