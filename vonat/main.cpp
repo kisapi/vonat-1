@@ -114,21 +114,30 @@ bool scheduleContains(const MyTrain& train, const std::string stop){
 bool isDeployable(const std::vector<MyTrain>& trains, const std::vector<MyStation>& stations){
     const size_t trainSize(trains.size());
     std::vector<std::vector<bool>> bitMap(trainSize, std::vector<bool>(trainSize,false));
-    for(size_t i = 0; i < (trains.size()-1); ++i){ // iterate through all trains
-        for(size_t k = (i+1); k < trains.size();++k){ //iterate through others
-            const std::vector<std::pair<std::string, unsigned int> >& baseSchedule = trains[i].getSchedule();
-            const std::vector<std::pair<std::string, unsigned int> >& otherSchedule = trains[k].getSchedule();
 
-            for(const std::pair<std::string, unsigned int >& baseTrainItem : baseSchedule){ // base schedule
-                for(const std::pair<std::string, unsigned int >& otherTrainItem : otherSchedule){ //other schedule
-                    if(baseTrainItem == otherTrainItem){
-                        bitMap[i][k] = true;
+    if(1 == trainSize){//No need to search for connection
+        bitMap[0][0] = true;
+    }else{
+        //Search for connection between trains's schedules
+        for(size_t i = 0; i < (trains.size()-1); ++i){ // iterate through all trains
+            for(size_t k = i; k < trains.size();++k){ //iterate through others
+                if(i == k){
+                    bitMap[i][k] = true;
+                    break;
+                }
+                const std::vector<std::pair<std::string, unsigned int> >& baseSchedule = trains[i].getSchedule();
+                const std::vector<std::pair<std::string, unsigned int> >& otherSchedule = trains[k].getSchedule();
+
+                for(const std::pair<std::string, unsigned int >& baseTrainItem : baseSchedule){ // base schedule
+                    for(const std::pair<std::string, unsigned int >& otherTrainItem : otherSchedule){ //other schedule
+                        if(baseTrainItem == otherTrainItem){
+                            bitMap[i][k] = true;
+                        }
                     }
                 }
             }
         }
     }
-
 
     for(const MyStation& station : stations){ //through stations-> we now the location
         for(const Package& package : station.getUndeliveredPackages()){ // through packages in that station
@@ -207,7 +216,7 @@ int main(int argc,  char* argv[])
 
     //Check whether the current problem has a solution
     if(!isDeployable(trains,stations)){
-        std::cerr << "This problem has no solutions since some packages can't be shipped"
+        std::cerr << "This problem has no solutions since some packages can't be shipped."
                   << std::endl;
         return -1;
     }
